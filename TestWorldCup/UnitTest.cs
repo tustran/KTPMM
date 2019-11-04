@@ -10,6 +10,15 @@ namespace TestWorldCup
     [TestFixture]
     class UnitTest
     {
+        [SetUp]
+        public void Init()
+        {
+            Database db = new Database();
+            String req = "DELETE dbo.Character";
+            db.exeSQL(req);
+            req = "DELETE dbo.TeamMatch";
+            db.exeSQL(req);
+        }
         
         [TestCase(5,6,11)]
         [TestCase(1,1,2)]
@@ -39,7 +48,7 @@ namespace TestWorldCup
         [Test]
         public void RegisterTeam()
         {
-            TeamMatch TeamA = new TeamMatch();           
+            TeamMatch TeamA = new TeamMatch(1,1);           
             bool expect = false;
             Character[] Team= TeamA.registerTeam(1, 2, 1, 12);
             for (int a = 0; a < Team.Length; a++)
@@ -59,6 +68,18 @@ namespace TestWorldCup
             bo.assignBoard("F", 1);           
             bool x=bo.assignBoard("A", 1);
             Assert.AreEqual(true, x);
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "The Number of Player is not enough.")]
+        public void BeforeMatch()
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                TeamMatch team = new TeamMatch(i,3);
+                team.registerTeam(1, 1, 1, 5);
+                bool x =team.Regis_beforeMatch();
+                Assert.AreEqual(false, x);
+            }
         }
     }
 }

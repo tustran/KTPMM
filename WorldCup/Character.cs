@@ -30,7 +30,6 @@ namespace WorldCup
             this.ID = id;
             fault = 0;
             maxGoal = 0;
-
             db.DisConnect();
         }
         public Character(int ro,int teamid)

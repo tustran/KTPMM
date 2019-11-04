@@ -23,14 +23,13 @@ namespace WorldCup
         public bool disqualified = false;
         public Character[] AllTeam { get => allTeam; set => allTeam = value; }
         public object TestContext { get; private set; }
-        public TeamMatch()
-        {
+        //public TeamMatch()
+        //{
 
-        }
+        //}
         public TeamMatch(int id, int Area)
         {
-            bool check = CheckArea(Area);
-            
+            //bool check = CheckArea(Area);            
             this.TeamID = id;
             this.Area = Area;
         }
@@ -61,7 +60,7 @@ namespace WorldCup
 
         public Character[] registerTeam(int HLV, int TLHLV, int SSV, int CauThu) // cầu thủ <=22
         {
-            TeamID = 5;
+            
             bool qualified = checkComponent(HLV, TLHLV, SSV, CauThu);
             if (qualified == false)
             {
@@ -101,11 +100,11 @@ namespace WorldCup
         private Boolean checkComponent(int HLV, int TLHLV, int SSV, int CauThu)
         {
             if (HLV == 1 && (TLHLV <=3 ) && (TLHLV >= 0) && (SSV == 1) && (CauThu <= 22) && (CauThu>=0))
-            {                
+            {
                 return true;
             }
             else
-                return false;
+                throw new ArgumentException("Exceed number.");
         }
         public int getscore(String s)
         {
@@ -125,6 +124,21 @@ namespace WorldCup
                 return 0;
             }
             return -1;
+        }
+        public Boolean Regis_beforeMatch()
+        {
+            Database db = new Database();
+            req = "SELECT COUNT(*) FROM dbo.Character WHERE Role=4 AND TeamId=" + TeamID;
+            dr=db.readSQL(req);
+            if (dr.Read())
+            {
+                int soCauThu = Int32.Parse(dr.GetValue(0).ToString());
+                if (soCauThu < 7 )
+                    throw new ArgumentException("The Number of Player is not enough.");
+            }
+            else
+                return false;
+            return true;
         }
     }
 }
