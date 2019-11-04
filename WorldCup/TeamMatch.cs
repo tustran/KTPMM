@@ -80,7 +80,7 @@ namespace WorldCup
 
             for (i = 0; i < TLHLV; i++)
             {
-                Character TLHLVs = new Character(2);
+                Character TLHLVs = new Character(2, TeamID);
                 AllTeam[j] = TLHLVs;
                 j++;
             }
