@@ -7,6 +7,7 @@ Có các method:
 	+RegisterTeam(int HLV, int TLHLV, int SSV, int CauThu) để tự động tạo 1 nhóm (rỗng thông tin)
 	+checkComponent(int HLV, int TLHLV, int SSV, int CauThu) để kiểm tra cái số lượng có thoả như mô tả yêu cầu của 1 nhóm không
 	+getscore(string s): gán điểm cho đội đó, nếu nó thắng,thua,hoà (Hàm này dc gọi trong Summary)
+	+checkArea(): tính dùng để kiểm tra vùng miền, mà tạm thời chưa làm xg
 -> chưa kiểm tra gì hết, toàn dữ liệu ma, ko lấy từ database
 ---------------------------
 BoardMatch.cs: dùng cho cái Phân Bảng đấu ở vòng loại
@@ -22,4 +23,12 @@ các Method:
 
 ---------------------------
 winner.cs: bỏ qua đi, chắc xoá.
+---------------------------
+Database.cs: dùng để thiết lập vài thứ của DB, thay đổi đường dẫn trước khi dùng trong lệnh con.connection(....)
+Các method:
+	+connect(): connect tới database, ko cần gọi, lúc tạo new Database() t cho nó chạy ở constructor rui
+	+exeSQL(string sql): thực hiện câu lệnh SQL truyền vào cho nó cái String
+	+readSQL(String sql): return cái SqldataReader, xem vd mẫu trong hàm CheckArea() của TeamMatch.cs
+	+disconnect(): disconnect sau khi truy vấn
+
 ---------------------------
